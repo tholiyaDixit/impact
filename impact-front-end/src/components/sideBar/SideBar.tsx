@@ -18,6 +18,12 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 // import InboxIcon from '@mui/icons-material/MoveToInbox';
 // import MailIcon from '@mui/icons-material/Mail';
+import MenuIcon from '../../images/svg/bars-staggered.svg'
+import leftArrow from '../../images/svg/small-left.svg'
+import mailIcon from '../..//images/svg/email.svg'
+import inboxIcon from '../../images/svg/inbox-in.svg'
+import userIcon from '../../images/svg/user.svg'
+import trashIcon from '../../images/svg/trash.svg'
 
 const drawerWidth = 240;
 
@@ -118,7 +124,7 @@ export default function SideBar() {
             }}
           >
             {/* <MenuIcon />  */}
-            menuIcon
+            <img src={MenuIcon} alt="" style={{width:"25px"}}/>
           </IconButton>
           <Typography variant="h6" noWrap component="div">
             Mini variant drawer
@@ -129,7 +135,7 @@ export default function SideBar() {
         <DrawerHeader>
           <IconButton onClick={handleDrawerClose}>
             {/* {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />} */}
-            {theme.direction === 'rtl' ? 1 : 2}
+            {theme.direction === 'rtl' ? 1 : <img src={leftArrow} alt="" style={{width:"15px"}}/> }
           </IconButton>
         </DrawerHeader>
         <Divider />
@@ -150,7 +156,7 @@ export default function SideBar() {
                     justifyContent: 'center',
                   }}
                 >
-                  {index % 2 === 0 ? "inboxIcon" : "MailIcon" }
+                  {index % 2 === 0 ?  <img src={mailIcon} alt="" style={{width:"15px"}} /> : <img src={userIcon} alt="" style={{width:"15px"}} /> }
                 </ListItemIcon>
                 <ListItemText primary={text} sx={{ opacity: open ? 1 : 0 }} />
               </ListItemButton>
@@ -175,7 +181,7 @@ export default function SideBar() {
                     justifyContent: 'center',
                   }}
                 >
-                  {index % 2 === 0 ? "<InboxIcon />" : "<MailIcon />"}
+                  {index % 2 === 0 ? <img src={mailIcon} alt="" style={{width:"15px"}} /> : <img src={userIcon} alt="" style={{width:"15px"}} /> }
                 </ListItemIcon>
                 <ListItemText primary={text} sx={{ opacity: open ? 1 : 0 }} />
               </ListItemButton>
