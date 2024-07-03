@@ -1,12 +1,14 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import logo from "./logo.svg";
+import "./App.css";
 // import SideBar from './components/sideBar/responsiveView/ResponsiveView';
-import SideBar from './components/sideBar/SideBar';
-// import Test from './components/Test';
+import SideBar from "./components/sideBar/SideBar";
+import Router from "./router/Router";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import ImageToUrl from "./pages/imageToUrl/ImageToUrl";
 
 function App() {
-  let a = undefined
+  let a = undefined;
   return (
     <div className="App">
       {/* <header className="App-header">
@@ -23,8 +25,14 @@ function App() {
           Learn React
         </a>
       </header> */}
-      <SideBar />
+      {/* <SideBar /> */}
       {/* <Test /> */}
+      {/* <BrowserRouter> */}
+      <Router />
+          {/* <Routes>
+            <Route path="/ImageToUrl" element={<ImageToUrl />} />
+          </Routes>
+        </BrowserRouter> */}
     </div>
   );
 }
