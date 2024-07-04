@@ -1,0 +1,17 @@
+.imageUploadUrl {
+  .uploadFile {
+    border: 1px solid black;
+    padding: 24px 0;
+  }
+  .encodedUrl {
+    border: 1px solid black;
+    overflow: auto;
+    margin-top: 15px;
+    height: 300px;
+    width: 100%;
+    word-break: break-all;
+    .copyUrl{
+        padding: 9px 0;
+    }
+  }
+}
