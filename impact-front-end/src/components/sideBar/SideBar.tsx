@@ -19,8 +19,11 @@ import ListItemText from "@mui/material/ListItemText";
 // import InboxIcon from '@mui/icons-material/MoveToInbox';
 // import MailIcon from '@mui/icons-material/Mail';
 import MenuIcon from "../../images/svg/bars-staggered.svg";
+import whiteMenuIcon from "../../images/svg/menu-alt-1-svgrepo-com.svg";
+import whiteLeftIcon from "../../images/svg/left-arrow-svgrepo-com.svg";
 import leftArrow from "../../images/svg/small-left.svg";
-import mailIcon from "../..//images/svg/email.svg";
+import mailIcon from "../../images/svg/email.svg";
+import imgSvg from "../../images/svg/picture-svgrepo-com.svg";
 import inboxIcon from "../../images/svg/inbox-in.svg";
 import userIcon from "../../images/svg/user.svg";
 import trashIcon from "../../images/svg/trash.svg";
@@ -119,7 +122,7 @@ export default function SideBar() {
           <IconButton
             color="inherit"
             aria-label="open drawer"
-            onClick={handleDrawerOpen}
+            onClick={() => {setOpen(true)}}
             edge="start"
             sx={{
               marginRight: 5,
@@ -127,7 +130,7 @@ export default function SideBar() {
             }}
           >
             {/* <MenuIcon />  */}
-            <img src={MenuIcon} alt="" style={{ width: "25px" }} />
+            <img src={whiteMenuIcon} alt="" style={{ width: "25px" }} />
           </IconButton>
           <Typography variant="h6" noWrap component="div">
             Mini variant drawer
@@ -136,12 +139,12 @@ export default function SideBar() {
       </AppBar>
       <Drawer variant="permanent" open={open}>
         <DrawerHeader>
-          <IconButton onClick={handleDrawerClose}>
+          <IconButton onClick={() => {setOpen(false);}}>
             {/* {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />} */}
             {theme.direction === "rtl" ? (
               1
             ) : (
-              <img src={leftArrow} alt="" style={{ width: "15px" }} />
+              <img src={whiteLeftIcon} alt="" style={{ width: "25px" }} />
             )}
           </IconButton>
         </DrawerHeader>
@@ -167,9 +170,9 @@ export default function SideBar() {
                   }}
                 >
                   {index % 2 === 0 ? (
-                    <img src={mailIcon} alt="" style={{ width: "15px" }} />
+                    <img src={imgSvg} alt="" style={{ width: "15px" }} />
                   ) : (
-                    <img src={userIcon} alt="" style={{ width: "15px" }} />
+                    <img src={imgSvg} alt="" style={{ width: "15px" }} />
                   )}
                 </ListItemIcon>
                 <ListItemText primary={text} sx={{ opacity: open ? 1 : 0 }} />

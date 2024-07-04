@@ -1,3 +1,28 @@
-.css-zxdg2z{
-    padding: 0 !important;
+@import "../../themes/themes.scss";
+.css-zxdg2z {
+  padding: 0 !important;
 }
+
+.css-1hsz34s-MuiDrawer-docked .MuiDrawer-paper {
+  background-color: $headerBackGroundCoder;
+}
+
+.css-10hburv-MuiTypography-root {
+    // color: #fff;
+    color: $textColorWhite;
+}
+
+.css-12i7wg6-MuiPaper-root-MuiDrawer-paper {
+    background-color: $headerBackGroundCoder !important;
+}
+
+.css-uxa1ks-MuiListItem-root {
+    border-bottom: 1px solid $whiteBorderColor;
+}
+
+.css-hyum1k-MuiToolbar-root{
+    background-color: $headerBackGroundCoder !important;
+}
+// #Main svg:hover {
+//     fill: #fce57e;
+// }
