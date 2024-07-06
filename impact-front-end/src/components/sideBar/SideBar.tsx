@@ -27,7 +27,6 @@ import { BrowserRouter, Route, Routes, useNavigate } from "react-router-dom";
 import "./SideBar.scss";
 import ImageToUrl from "../../pages/imageToUrl/ImageToUrl";
 import { Avatar, Button, Menu, MenuItem } from "@mui/material";
-import Login from "../../popup/login/Login";
 import logo from "../../images/impact-logo.png";
 import CustomLogin from "../../popup/customLoginPopup/CustomLogin";
 
@@ -205,9 +204,6 @@ export default function SideBar() {
                     </>
                   );
                 })}
-              {/* <MenuItem>
-                <Login />
-              </MenuItem> */}
               <MenuItem
                 onClick={() => {
                   setCustomLoginPopup(true);
