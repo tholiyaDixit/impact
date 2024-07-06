@@ -48,3 +48,7 @@ To learn React, check out the [React documentation](https://reactjs.org/).
 
 
 yarn add @mui/material @emotion/react @emotion/styled
+
+logo
+https://www.ticketmaster.fr/statics/editorials/impact-logo.png
+https://assets-global.website-files.com/5f3aa3aebba6e9f26ee4f25f/65de79f94af41304c5d687cb_Untitled_design_-_2020-11-24T110552.263.webp
