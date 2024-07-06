@@ -19,12 +19,18 @@ import whiteLeftIcon from "../../images/svg/left-arrow-svgrepo-com.svg";
 import leftArrow from "../../images/svg/small-left.svg";
 import mailIcon from "../../images/svg/email.svg";
 import imgSvg from "../../images/svg/picture-svgrepo-com.svg";
+import jsonSvg from "../../images/svg/email.svg";
 import inboxIcon from "../../images/svg/inbox-in.svg";
 import userIcon from "../../images/svg/user.svg";
 import trashIcon from "../../images/svg/trash.svg";
 import { BrowserRouter, Route, Routes, useNavigate } from "react-router-dom";
 import "./SideBar.scss";
 import ImageToUrl from "../../pages/imageToUrl/ImageToUrl";
+import { Avatar, Button, Menu, MenuItem } from "@mui/material";
+import Login from "../../popup/login/Login";
+import logo from "../../images/impact-logo.png";
+import CustomLogin from "../../popup/customLoginPopup/CustomLogin";
+
 const drawerWidth = 240;
 
 const openedMixin = (theme: Theme): CSSObject => ({
@@ -100,6 +106,9 @@ export default function SideBar() {
   const navigate = useNavigate();
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
+  const [customLoginPopup, setCustomLoginPopup] = React.useState(false);
+  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+  const openDropdown = Boolean(anchorEl);
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -109,15 +118,39 @@ export default function SideBar() {
     setOpen(false);
   };
 
+  const allPage = ["Image Base64", "SignUp"];
+  const dropdown = ["Profile", "My account"];
+  // const sideImg =
+  const showImage = (path: string): any => {
+    let showImages =
+      path == "Image Base64" ? imgSvg : path == "SignUp" ? userIcon : jsonSvg;
+    return (
+      <>
+        <img src={showImages} alt="" style={{ width: "15px" }} />
+      </>
+    );
+  };
+
+  const handleClickDropdown = (path?: string) => {
+    setAnchorEl(null);
+    !!path && navigate(path);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
   return (
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
       <AppBar position="fixed" open={open}>
-        <Toolbar>
+        <Toolbar style={{ display: "flex", justifyContent: "space-between" }}>
           <IconButton
             color="inherit"
             aria-label="open drawer"
-            onClick={() => {setOpen(true)}}
+            onClick={() => {
+              setOpen(true);
+            }}
             edge="start"
             sx={{
               marginRight: 5,
@@ -125,27 +158,95 @@ export default function SideBar() {
             }}
           >
             {/* <MenuIcon />  */}
+
             <img src={whiteMenuIcon} alt="" style={{ width: "25px" }} />
           </IconButton>
           <Typography variant="h6" noWrap component="div">
             Mini variant drawer
           </Typography>
+          <div>
+            <Button
+              id="basic-button"
+              aria-controls={openDropdown ? "basic-menu" : undefined}
+              aria-haspopup="true"
+              aria-expanded={openDropdown ? "true" : undefined}
+              onClick={(event: React.MouseEvent<HTMLButtonElement>) => {
+                setAnchorEl(event.currentTarget);
+              }}
+            >
+              <Avatar
+                alt="Cindy Baker"
+                src="https://mui.com/static/images/avatar/2.jpg"
+              />
+            </Button>
+            <Menu
+              id="basic-menu"
+              anchorEl={anchorEl}
+              open={openDropdown}
+              onClose={handleClose}
+              MenuListProps={{
+                "aria-labelledby": "basic-button",
+              }}
+            >
+              {!!dropdown &&
+                dropdown.map((item: any, index: number) => {
+                  return (
+                    <>
+                      <MenuItem
+                        key={index}
+                        onClick={() => {
+                          // handleClose()
+                          setAnchorEl(null);
+                          navigate(item);
+                        }}
+                      >
+                        {item}
+                      </MenuItem>
+                    </>
+                  );
+                })}
+              {/* <MenuItem>
+                <Login />
+              </MenuItem> */}
+              <MenuItem
+                onClick={() => {
+                  setCustomLoginPopup(true);
+                  setAnchorEl(null);
+                }}
+              >
+                CustomLogin
+                {/* <CustomLogin /> */}
+              </MenuItem>
+            </Menu>
+          </div>
         </Toolbar>
       </AppBar>
       <Drawer variant="permanent" open={open}>
         <DrawerHeader>
-          <IconButton onClick={() => {setOpen(false);}}>
+          <IconButton
+          // onClick={() => {
+          //   setOpen(false);
+          // }}
+          >
+            <img src={logo} alt="" width={"180px"} />
             {/* {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />} */}
             {theme.direction === "rtl" ? (
               1
             ) : (
-              <img src={whiteLeftIcon} alt="" style={{ width: "25px" }} />
+              <img
+                src={whiteLeftIcon}
+                alt=""
+                style={{ width: "25px" }}
+                onClick={() => {
+                  setOpen(false);
+                }}
+              />
             )}
           </IconButton>
         </DrawerHeader>
         <Divider />
         <List>
-          {["Image Base64"].map((text, index) => (
+          {allPage.map((text, index) => (
             <ListItem key={text} disablePadding sx={{ display: "block" }}>
               <ListItemButton
                 onClick={() => {
@@ -164,11 +265,12 @@ export default function SideBar() {
                     justifyContent: "center",
                   }}
                 >
-                  {index % 2 === 0 ? (
+                  {showImage(text)}
+                  {/* {index % 2 === 0 ? (
                     <img src={imgSvg} alt="" style={{ width: "15px" }} />
                   ) : (
                     <img src={imgSvg} alt="" style={{ width: "15px" }} />
-                  )}
+                  )} */}
                 </ListItemIcon>
                 <ListItemText primary={text} sx={{ opacity: open ? 1 : 0 }} />
               </ListItemButton>
@@ -202,16 +304,21 @@ export default function SideBar() {
           ))}
         </List> */}
       </Drawer>
-      <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
+      {/* <Box component="main" sx={{ flexGrow: 1, p: 3 }}> */}
         <DrawerHeader />
+        <CustomLogin
+          open={customLoginPopup}
+          onClosePopup={() => {
+            setCustomLoginPopup(false);
+          }}
+        />
 
         {/* <BrowserRouter>
           <Routes>
             <Route path="/ImageToUrl" element={<ImageToUrl />} />
           </Routes>
         </BrowserRouter> */}
-
-      </Box>
+      {/* </Box> */}
     </Box>
   );
 }
