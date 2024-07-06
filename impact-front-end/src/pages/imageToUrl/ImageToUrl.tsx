@@ -5,6 +5,7 @@ import "./ImageToUrl.scss";
 // import Button from "../../components/button/Button";
 import { Button, ButtonProps, buttonClasses } from "@mui/base/Button";
 import { LinearProgress } from "@mui/material";
+import FileUploadButton from "../../components/fileUploadButton/FileUploadButton";
 
 const ButtonRoot = React.forwardRef(function ButtonRoot(
   props: React.PropsWithChildren<{}>,
@@ -153,9 +154,17 @@ const ImageToUrl = () => {
       <h1>ImageToUrl</h1>
       <div className="imageUploadUrl">
         <div className="uploadFile">
-          <input
+          {/* <input
             type="file"
             onChange={(e) => {
+              uploadImage(e);
+            }}
+          /> */}
+          <FileUploadButton
+            width={"160px"}
+            imgWidth={"30px"}
+            marginBottom={"30px"}
+            onChange={(e: any) => {
               uploadImage(e);
             }}
           />
@@ -195,3 +204,35 @@ const ImageToUrl = () => {
 };
 
 export default ImageToUrl;
+
+// import * as React from 'react';
+// import { styled } from '@mui/material/styles';
+// import Button from '@mui/material/Button';
+// import CloudUploadIcon from '@mui/icons-material/CloudUpload';
+
+// const VisuallyHiddenInput = styled('input')({
+//   clip: 'rect(0 0 0 0)',
+//   clipPath: 'inset(50%)',
+//   height: 1,
+//   overflow: 'hidden',
+//   position: 'absolute',
+//   bottom: 0,
+//   left: 0,
+//   whiteSpace: 'nowrap',
+//   width: 1,
+// });
+
+// export default function InputFileUpload() {
+//   return (
+//     <Button
+//       component="label"
+//       role={undefined}
+//       variant="contained"
+//       tabIndex={-1}
+//       startIcon={<CloudUploadIcon />}
+//     >
+//       Upload file
+//       <VisuallyHiddenInput type="file" />
+//     </Button>
+//   );
+// }
