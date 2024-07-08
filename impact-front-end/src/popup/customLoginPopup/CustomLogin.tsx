@@ -2,21 +2,23 @@ import { Box } from "@mui/material";
 import React, { useState } from "react";
 import "./CustomLogin.scss";
 import useBreakPointView from "../../customHook/usebreakPointView";
+import { useNavigate } from "react-router-dom";
 
 interface customLoginPopup {
   open: boolean;
   onClosePopup: any;
 }
 const CustomLogin = (props: customLoginPopup) => {
+  const navigate = useNavigate();
   let mobileView = useBreakPointView();
-  console.log("mobileView ---", mobileView);
+  // console.log("mobileView ---", mobileView);
 
   const [openNextModal, setOpenNextModal] = useState(false);
 
-  const openNextModalPopup = (): void => {
-    setOpenNextModal(true);
-  };
-  console.log("openNextModal ---", openNextModal);
+  // const openNextModalPopup = (): void => {
+  //   setOpenNextModal(true);
+  // };
+  // console.log("openNextModal ---", openNextModal);
 
   return (
     <>
@@ -130,7 +132,9 @@ const CustomLogin = (props: customLoginPopup) => {
               </p>
               <div className="line-wh"></div>
               <button
-                //   onclick=""
+                onClick={() => {
+                  navigate("forgot-password");
+                }}
                 className="b-support"
                 title="Forgot Password?"
               >
@@ -147,7 +151,10 @@ const CustomLogin = (props: customLoginPopup) => {
               </button>
               <div className="line-wh"></div>
               <button
-                //   onclick=""
+                onClick={() => {
+                  navigate("signUp");
+                  props.onClosePopup();
+                }}
                 className="b-cta"
                 title="Sign up now!"
               >

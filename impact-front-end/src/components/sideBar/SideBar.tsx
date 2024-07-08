@@ -118,7 +118,7 @@ export default function SideBar() {
   };
 
   const allPage = ["Image Base64", "SignUp"];
-  const dropdown = ["Profile", "My account"];
+  const dropdown = [ "Edit Profile", "View Profile", "Account Settings"  ];
   // const sideImg =
   const showImage = (path: string): any => {
     let showImages =

@@ -19,7 +19,7 @@ export interface FileUploadButtonProps {
   width: string;
   imgWidth: string;
   marginBottom: string;
-  onChange: any
+  onChange: any;
 }
 
 export default function FileUploadButton(props: FileUploadButtonProps) {

@@ -1,0 +1,107 @@
+@import "../../themes/themes.scss";
+
+.pageImg {
+  height: 103%;
+  display: flex;
+  background: url("../../images/signup/company.jpg")
+    center no-repeat;
+    background-position: center;
+    background-size: cover;
+    background-attachment: fixed;
+  .singUpFor {
+    height: 95%;
+    border-radius: 21px;
+    display: flex;
+    width: 95%;
+    background-color: #fff;
+    margin: auto;
+  }
+  .leftSide {
+    width: 50%;
+    background-image: url("../../images/signup/Dgraph\ raises.jpg");
+    background-position: center;
+    background-size: cover;
+    border-radius: 20px;
+    .info {
+      color: $textColorWhite;
+      padding: 3rem ;
+      .centerInfo {
+        padding: 3rem !important;
+        background: linear-gradient(
+          90deg,
+          rgba(12, 37, 68, 1) 0%,
+          rgba(23, 53, 95, 1) 35%,
+          rgba(26, 72, 111, 1) 100%
+        );
+        border-radius: 20px;
+      }
+      .infoText {
+        text-align: start !important;
+        .welcome {
+          margin: 0px;
+        }
+        .letsStart {
+          color: $textColorWhite !important;
+          font-size: xx-large;
+        }
+      }
+    }
+  }
+  .rightSide {
+    border-radius: 20px;
+    background-color: #f8f9fa;
+    // display: flex;
+    // justify-content: center;
+    // flex-direction: column;
+    width: 50%;
+    .signUpForm {
+      display: flex;
+      flex-direction: column;
+      padding: 0px 40px;
+      .inputBox {
+        margin-top: 20px;
+      }
+      .checkBox {
+        display: flex;
+        margin-top: 30px;
+      }
+      .signUpButton {
+        margin-top: 20px;
+        .createAccount {
+          width: 50%;
+          padding: 10px;
+          border-radius: 28px;
+          background-color: #198754;
+        }
+        .createAccount:hover {
+          background-color: #35a471;
+        }
+        .signUpOtherWay {
+          // e9e9e9
+          width: 51%;
+          padding: 10px;
+          border-radius: 28px;
+          background-color: $backGroundColorWhite;
+          margin-top: 7px;
+
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          margin: 8px auto 0px auto;
+        }
+        .signUpOtherWay:hover {
+          background-color: #e9e9e9;
+        }
+      }
+      .LoginPopup {
+        margin: 15px 0px;
+        .openLoginPopup {
+          border: none;
+          background: none;
+          color: blue;
+          font-size: 17px;
+        }
+      }
+    }
+  }
+}

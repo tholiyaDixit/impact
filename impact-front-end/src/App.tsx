@@ -9,7 +9,7 @@ import ImageToUrl from "./pages/imageToUrl/ImageToUrl";
 import CustomLogin from "./popup/customLoginPopup/CustomLogin";
 
 function App() {
-  let a = undefined;
+
   return (
     <div className="App">
      
