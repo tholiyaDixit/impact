@@ -6,7 +6,6 @@ import CustomLogin from '../../popup/customLoginPopup/CustomLogin';
 const Home = () => {
     const location = useLocation();
     const data = location.state;
-    console.log("data ---",data.popup);
     const PopupManagement = usePopupManagement(data)
 
     // useEffect(() => {
