@@ -4,17 +4,32 @@ import "./SignUp.scss";
 import TextField from "@mui/material/TextField";
 import facebookIcon from "../../images/svg/facebook.svg";
 import googleIcon from "../../images/svg/google.svg";
-import { useLocation, useNavigate } from "react-router-dom";
-import CustomLogin from "../../popup/customLoginPopup/CustomLogin";
+import { useNavigate } from "react-router-dom";
 import useIsAtBreakpoint from "../../customHook/usebreakPointView";
+import { useDispatch } from "react-redux";
+import {
+  addPopup,
+  manageAppPopupSlice,
+} from "../../redux/managePopup/managePopup";
+import { useAppDispatch } from "../../redux/store";
 
 const label = { inputProps: { "aria-label": "Checkbox demo" } };
 
 const SignUp = () => {
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const mobile = useIsAtBreakpoint();
 
   const [customLoginPopup, setCustomLoginPopup] = React.useState(false);
+
+  let reduxData = {
+    popup: "login",
+    show: true,
+  };
+  const userDispatch = () => {
+    // dispatch(managePopup(reduxData));
+    // console.log("addUser ---", name);
+  };
 
   return (
     <Box component="main" sx={{ flexGrow: 1 }} mt={8}>
@@ -109,9 +124,17 @@ const SignUp = () => {
                 Already have an account?{" "}
                 <button
                   className="openLoginPopup"
+                  // onClick={() => {
+                  //   // setCustomLoginPopup(true)
+                  //   // dispatch(addUser(reduxData));
+                  //   dispatch(manageAppPopupSlice(reduxData));
+                  //   // navigate("/", { state: { popup: "login" } });
+                  //   navigate("/");
+                  // }}
                   onClick={() => {
-                    // setCustomLoginPopup(true)
-                    navigate("/", { state: { popup: "login" } });
+                    dispatch(addPopup({ popup: "login", show: true }));
+                    console.log("call addPopup ---");
+                    navigate("/");
                   }}
                 >
                   {" "}
