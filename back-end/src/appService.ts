@@ -31,7 +31,7 @@ export class appService {
     constructor(controllers = []) {
         dotenv.config();
         // this.connectionDatabase();
-        // this.initMiddleWares();
+        this.initMiddleWares();
         // this.enableStaticFile();
         // this.initLogger();
         console.log("controllers ---",controllers);
@@ -71,7 +71,8 @@ export class appService {
     }
 
     initMiddleWares() {
-        this.app.use (cors (this.buildCorsOpt ()));
+        this.app.use(cors())
+        // this.app.use (cors (this.buildCorsOpt ()));
         this.app.use (bodyParser.json ());
         // console.log("callInitMiddleWares ---");
         

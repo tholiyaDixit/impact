@@ -15,11 +15,6 @@ const CustomLogin = (props: customLoginPopup) => {
 
   const [openNextModal, setOpenNextModal] = useState(false);
 
-  // const openNextModalPopup = (): void => {
-  //   setOpenNextModal(true);
-  // };
-  // console.log("openNextModal ---", openNextModal);
-
   return (
     <>
       {/* CustomLogin */}
@@ -57,18 +52,18 @@ const CustomLogin = (props: customLoginPopup) => {
                   title="Back to Sign In"
                 ></button>
               </div>
+              {/* testing */}
+              {/* <div dangerouslySetInnerHTML={html} /> */}
+              {/* testing */}
               <div className="box-login">
                 <div className="fieldset-body" id="login_form">
-                  {/* {!openNextModal && ( */}
                   <button
-                    // onclick="openLoginInfo();"
                     onClick={() => {
                       setOpenNextModal(true);
                     }}
                     className="b b-form i i-more"
-                    // title="Mais Informações"
                   ></button>
-                  {/* )} */}
+                  {/* <div dangerouslySetInnerHTML={html} />  */}
                   <p className="field">
                     <label>E-MAIL</label>
                     <input type="text" id="user" name="user" title="Username" />
@@ -103,7 +98,6 @@ const CustomLogin = (props: customLoginPopup) => {
                 </div>
               </div>
             </div>
-            {/* {openNextModal && ( */}
             <div
               className="box-info"
               style={{

@@ -7,16 +7,16 @@ import googleIcon from "../../images/svg/google.svg";
 import { useNavigate } from "react-router-dom";
 import useIsAtBreakpoint from "../../customHook/usebreakPointView";
 import { useDispatch } from "react-redux";
-import {
-  addPopup,
-  manageAppPopupSlice,
-} from "../../redux/managePopup/managePopup";
-import { useAppDispatch } from "../../redux/store";
+// import {
+//   addPopup,
+//   manageAppPopupSlice,
+// } from "../../redux/managePopup/managePopup";
+// import { useAppDispatch } from "../../redux/store";
 
 const label = { inputProps: { "aria-label": "Checkbox demo" } };
 
 const SignUp = () => {
-  const dispatch = useAppDispatch();
+  // const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const mobile = useIsAtBreakpoint();
 
@@ -132,7 +132,7 @@ const SignUp = () => {
                   //   navigate("/");
                   // }}
                   onClick={() => {
-                    dispatch(addPopup({ popup: "login", show: true }));
+                    // dispatch(addPopup({ popup: "login", show: true }));
                     console.log("call addPopup ---");
                     navigate("/");
                   }}

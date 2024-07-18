@@ -1,23 +1,13 @@
-import React, { useEffect } from "react";
-import { useLocation } from "react-router-dom";
-import usePopupManagement from "../../components/usePopupManagement";
-import CustomLogin from "../../popup/customLoginPopup/CustomLogin";
-import { useAppDispatch, useAppSelector } from "../../redux/store";
+import React from 'react'
 
 const Home = () => {
-  const persons = useAppSelector((state: any) => state.popup.manageAppPopup);
-  // const location = useLocation();
-  // const data = location.state;
-  const PopupManagement = usePopupManagement(persons[0]);
+  return (
+    <div>
+      <>
+      <h1>Home Page</h1>
+      </>
+    </div>
+  )
+}
 
-  // const popupData = useAppDispatch((state:any)=> state.popup)
-  console.log("persons ---", persons);
-
-  // useEffect(() => {
-  //     !!data && !!data.popup && setCustomLoginPopup(true)
-  // },[])
-
-  return <div>{PopupManagement}</div>;
-};
-
-export default Home;
+export default Home

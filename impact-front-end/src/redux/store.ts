@@ -1,12 +1,19 @@
-import { configureStore } from "@reduxjs/toolkit";
-import { manageAppPopupSlice } from "./managePopup/managePopup";
-import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
+import { configureStore } from '@reduxjs/toolkit'
+// Or from '@reduxjs/toolkit/query/react'
+import { setupListeners } from '@reduxjs/toolkit/query'
+import { userApi } from './userApi/UserApi'
 
 export const store = configureStore({
-    reducer: {
-        popup: manageAppPopupSlice.reducer
-    }
+  reducer: {
+    // Add the generated reducer as a specific top-level slice
+    [userApi.reducerPath]: userApi.reducer,
+  },
+  // Adding the api middleware enables caching, invalidation, polling,
+  // and other useful features of `rtk-query`.
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware().concat(userApi.middleware),
 })
 
-export const useAppDispatch: () => typeof store.dispatch = useDispatch;
-export const useAppSelector: TypedUseSelectorHook<ReturnType<typeof store.getState>> = useSelector;
+// optional, but required for refetchOnFocus/refetchOnReconnect behaviors
+// see `setupListeners` docs - takes an optional callback as the 2nd arg for customization
+setupListeners(store.dispatch)

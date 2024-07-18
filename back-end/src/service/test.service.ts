@@ -1,8 +1,9 @@
  class TestService {
-    constructor() { }
+    constructor(dbConn:any) { 
+        
+    }
     // static 
     static PasswordGeneratorService() {
-        // generate() {
         const length = 8;
         const charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
         let password = "";
@@ -10,8 +11,8 @@
             password += charset.charAt(Math.floor(Math.random() * n));
         }
         return password;
-        // }
     }
 
 }
 export default TestService
+// module.exports = new TestService()

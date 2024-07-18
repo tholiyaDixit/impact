@@ -3,6 +3,8 @@ import express, { NextFunction, Request, Response } from 'express'
 import ServerException from "../exceptions/ServerException";
 import Controller from '../core/controller';
 import TestServer from '../service/test.service'
+// import AllService from '../service/allService'
+// import { dbConn } from '../database/dbConnect';
 // import isLoggedIn from '@middleware/user';
 
 
@@ -14,13 +16,11 @@ class TestController extends Controller {
         super();
         this.initializeRoutes();
         console.log("aaaa ---");
-
     }
 
 
     // async getAll(req: Express.Request, res: any, next: NextFunction) {
     async getAll(req: Request, res: Response, next: NextFunction) {
-
         try {
             console.log("call getAll---");
             let results = "testing response"
@@ -33,8 +33,6 @@ class TestController extends Controller {
                     result
                 },
             });
-
-
         } catch (error: any) {
             next(new ServerException(error.message));
         }
