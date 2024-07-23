@@ -1,5 +1,5 @@
 import { Box, Checkbox } from "@mui/material";
-import React from "react";
+import React, { useEffect } from "react";
 import "./SignUp.scss";
 import TextField from "@mui/material/TextField";
 import facebookIcon from "../../images/svg/facebook.svg";
@@ -7,6 +7,19 @@ import googleIcon from "../../images/svg/google.svg";
 import { useNavigate } from "react-router-dom";
 import useIsAtBreakpoint from "../../customHook/usebreakPointView";
 import { useDispatch } from "react-redux";
+import Testing from "../../popup/Testing";
+import CustomLogin from "../../popup/customLoginPopup/CustomLogin";
+import Login from "../../popup/login/Login";
+import {
+  conformPasswordValidation,
+  emailValidation,
+  IValidation,
+  nameValidation,
+  passwordValidation,
+} from "../../utils/validation";
+import { useAddUserMutation } from "../../redux/userApi/UserApi";
+import { getUUId } from "../../utils/getUserUUId";
+import { setUser } from "../../redux/reducers/userReducers";
 // import {
 //   addPopup,
 //   manageAppPopupSlice,
@@ -19,17 +32,84 @@ const SignUp = () => {
   // const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const mobile = useIsAtBreakpoint();
+  const dispatch = useDispatch();
 
-  const [customLoginPopup, setCustomLoginPopup] = React.useState(false);
+  // const [customLoginPopup, setCustomLoginPopup] = React.useState(false);
+  const [openLoginPopup, setOpenLoginPopup] = React.useState(false);
+  const [validationError, setValidationError] =
+    React.useState<App.User.UserFormValidation>({
+      firstName: "",
+      email: "",
+      password: "",
+      conformPassword: "",
+    });
 
-  let reduxData = {
-    popup: "login",
-    show: true,
+  const [userSignData, setUserSignData] = React.useState<App.User.UserSignUp>({
+    firstName: "",
+    email: "",
+    password: "",
+    conformPassword: "",
+  });
+
+  const [addUser, { data: userData, isError, isLoading, error, isSuccess }] =
+    useAddUserMutation();
+
+  const signUpHandler = async (event: any) => {
+    event.preventDefault();
+
+    const checkFirstName: IValidation = nameValidation(
+      userSignData.firstName,
+      "First Name"
+    );
+
+    const checkEmail: IValidation = emailValidation(userSignData.email);
+    const checkPassword: IValidation = passwordValidation(
+      userSignData.password
+    );
+    const checkConformPassword: IValidation = conformPasswordValidation(
+      userSignData.conformPassword,
+      userSignData.password
+    );
+
+    setValidationError({
+      firstName: checkFirstName.message,
+      email: checkEmail.message,
+      password: checkPassword.message,
+      conformPassword: checkConformPassword.message,
+    });
+
+    // console.log("allData ---", userSignData);
+    // console.log("checkFirstName ---", checkFirstName);
+    // console.log("checkEmail ---", checkEmail);
+    // console.log("checkPassword ---", checkPassword);
+    // console.log("conformPassword ---", checkConformPassword);
+    let deviceId = getUUId();
+    let userData = {
+      ...userSignData,
+      deviceId,
+    };
+    if (
+      checkFirstName.validation &&
+      checkEmail.validation &&
+      checkPassword.validation &&
+      checkConformPassword.validation
+    ) {
+      await addUser(userData);
+      setUserSignData({
+        email: "",
+        conformPassword: "",
+        password: "",
+        firstName: "",
+      });
+    }
   };
-  const userDispatch = () => {
-    // dispatch(managePopup(reduxData));
-    // console.log("addUser ---", name);
-  };
+
+  useEffect(() => {
+    if (!!userData) {
+      dispatch(setUser(userData))
+    }
+  }, [])
+
 
   return (
     <Box component="main" sx={{ flexGrow: 1 }} mt={8}>
@@ -71,11 +151,19 @@ const SignUp = () => {
             <div className="signUpForm">
               <TextField
                 id="standard-textarea"
-                label="Your Name"
-                placeholder="Enter Your Name"
+                label="First Name"
+                placeholder="Enter First Name"
                 multiline
                 variant="standard"
                 className="inputBox"
+                onChange={(e: any) => {
+                  setUserSignData({
+                    ...userSignData,
+                    firstName: e.target.value,
+                  });
+                }}
+                value={userSignData.firstName}
+                error={validationError.firstName == "" ? false : true}
               />
               <TextField
                 id="standard-textarea"
@@ -84,6 +172,11 @@ const SignUp = () => {
                 multiline
                 variant="standard"
                 className="inputBox"
+                onChange={(e: any) => {
+                  setUserSignData({ ...userSignData, email: e.target.value });
+                }}
+                value={userSignData.email}
+                error={validationError.email == "" ? false : true}
               />
               <TextField
                 id="standard-textarea"
@@ -92,6 +185,14 @@ const SignUp = () => {
                 multiline
                 variant="standard"
                 className="inputBox"
+                onChange={(e: any) => {
+                  setUserSignData({
+                    ...userSignData,
+                    password: e.target.value,
+                  });
+                }}
+                value={userSignData.password}
+                error={validationError.password == "" ? false : true}
               />
               <TextField
                 id="standard-textarea"
@@ -100,13 +201,23 @@ const SignUp = () => {
                 multiline
                 variant="standard"
                 className="inputBox"
+                onChange={(e: any) => {
+                  setUserSignData({
+                    ...userSignData,
+                    conformPassword: e.target.value,
+                  });
+                }}
+                value={userSignData.conformPassword}
+                error={validationError.conformPassword == "" ? false : true}
               />
               <div className="checkBox">
                 <input type="checkbox" name="" id="" />
                 Remember me
               </div>
               <div className="signUpButton">
-                <button className="createAccount">Create Account</button>
+                <button className="createAccount" onClick={signUpHandler}>
+                  Create Account
+                </button>
                 <p style={{ margin: "0px" }}>OR</p>
                 <button className="signUpOtherWay">
                   {" "}
@@ -133,8 +244,9 @@ const SignUp = () => {
                   // }}
                   onClick={() => {
                     // dispatch(addPopup({ popup: "login", show: true }));
-                    console.log("call addPopup ---");
-                    navigate("/");
+                    // console.log("call addPopup ---");
+                    // navigate("/");
+                    setOpenLoginPopup(true);
                   }}
                 >
                   {" "}
@@ -145,6 +257,18 @@ const SignUp = () => {
           </div>
         </div>
       </div>
+      {
+        !!openLoginPopup && (
+          // <Testing open={openLoginPopup} onClose={() => {setOpenLoginPopup(false)}} />
+          <Login
+            open={openLoginPopup}
+            onClose={() => {
+              setOpenLoginPopup(false);
+            }}
+          />
+        )
+        // <CustomLogin open={true} onClosePopup={() => {setOpenLoginPopup(false)}} />
+      }
     </Box>
   );
 };

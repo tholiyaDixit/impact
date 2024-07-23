@@ -6,6 +6,7 @@ import "./ImageToUrl.scss";
 import { Button, ButtonProps, buttonClasses } from "@mui/base/Button";
 import { LinearProgress } from "@mui/material";
 import FileUploadButton from "../../components/fileUploadButton/FileUploadButton";
+import { useSelector } from "react-redux";
 
 const ButtonRoot = React.forwardRef(function ButtonRoot(
   props: React.PropsWithChildren<{}>,
@@ -118,6 +119,9 @@ const CustomButtonRoot = styled(ButtonRoot)(
 );
 
 const ImageToUrl = () => {
+  const posts = useSelector((state:any) => state.posts)
+  console.log("post ---",posts);
+  
   const [baseImage, setBaseImage] = useState("");
   const [loading, setLoading] = useState<boolean>(false);
 

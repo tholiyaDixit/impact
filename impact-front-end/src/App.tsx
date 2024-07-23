@@ -3,6 +3,7 @@ import Router from "./router/Router";
 
 import { useLoginUserMutation } from "./redux/userApi/UserApi";
 import { useEffect } from "react";
+import Testing from "./popup/Testing";
 
 function App() {
   let userData = {
@@ -39,7 +40,7 @@ function App() {
   return (
     <div className="App">
       <Router />
-      {/* <CustomLogin /> */}
+      {/* <Testing /> */}
     </div>
   );
 }

@@ -4,6 +4,9 @@ import ServerException from "../exceptions/ServerException";
 import Controller from '../core/controller';
 import UserServer from '../service/User.service'
 import { dbConn } from '../database/dbConnect';
+import { insertQuery, userDataInsertQuery } from '../database/sqlQuery/user/userQuery';
+import UserService from '../service/User.service';
+import { getSqlDataByOneField } from '../database/sqlQuery/query';
 // import isLoggedIn from '@middleware/user';
 
 
@@ -44,23 +47,39 @@ class TestController extends Controller {
     }
 
 
-    async userSignUp(req: Express.Request, res: Response, next: NextFunction) {
-
-
+    async userSignUp(req: Request, res: Response, next: NextFunction) {
+        let insertQuery: string = userDataInsertQuery(req.body)
+        let checkEmail: string = getSqlDataByOneField('user', "email", req.body.email)
         try {
-            // dbConn.query(querys, async function (error: any, results: any, fields: any) {
-            //     console.log("error ---", error);
+            dbConn.query(checkEmail, async function (error: any, results: any, fields: any) {
+                // console.log("checkEmail ---", results);
+                if (!!results && results.length == 0) {
 
-            //     if (error) throw error;
-            //     console.log("data --", results);
-            //     let result = await UserServer.getLoginDataWithEmail(results)
-            //     // if (!result) {
-            //     //     next(new ServerException("testing"));
-            //     //     // throw new Error("err/")
-            //     //     res.send({ data: "notFpund", code: "notFound" })
-            //     // }
-            //     res.send({ data: results })
-            // })
+
+                    dbConn.query(insertQuery, async function (error: any, results: any, fields: any) {
+                        if (error) throw error;
+                        if (results) {
+
+                            // let userLoginWithEmail = await UserService.getLoginDataWithEmail("dixit@gmail.com", res)
+                            dbConn.query(`SELECT * FROM user WHERE email = '${req.body.email}'`, async function (error: any, results: any, fields: any) {
+                                console.log("data ---", error);
+                                if (error) throw error;
+                                res.send({ data: results[0] })
+                            });
+                        } else {
+                            res.status(404).json({
+                                status: "Server Error"
+                            })
+                        }
+                    })
+                } else {
+                    res.status(422).json({
+                        status: "Unprocessable Entity"
+                    })
+                }
+
+            })
+
         } catch (error) {
 
         }
@@ -82,7 +101,7 @@ class TestController extends Controller {
         this._router
             .post(`${this._path}/login` as any, this.testing, this.userLogin)
         this._router
-            .get(`${this._path}/signUp` as any, this.userSignUpMiddleWares, this.userSignUp)
+            .post(`${this._path}/signUp` as any, this.userSignUpMiddleWares, this.userSignUp)
     }
 }
 
